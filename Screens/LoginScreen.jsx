@@ -11,19 +11,17 @@ import {
   Keyboard,
 } from "react-native";
 
-import { AntDesign } from '@expo/vector-icons';
 import { useFonts } from "expo-font";
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
 
 const initialState = {
-  login: "",
   email: "",
   password: "",
 };
 
-export const RegistrationForm = () => {
+export const LoginForm = () => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
   const [state, setState] = useState(initialState);
@@ -56,29 +54,12 @@ export const RegistrationForm = () => {
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
           <View style={styles.container} onLayout={onLayoutRootView}>
-            <View style={styles.photo}>
-              <AntDesign
-                name="pluscircleo"
-                size={25}
-                color="#FF6C00"
-                style={styles.avatarIcon}
-              />
-            </View>
-            <Text style={styles.title}>Регистрация</Text>
+            <Text style={styles.title}>Войти</Text>
             <View style={{
               ...styles.form,
               marginBottom: isShowKeyboard ? 10 : 80
               }}
             >
-              <TextInput
-                style={styles.input}
-                placeholder="Логин"
-                onFocus={() => setIsShowKeyboard(true)}
-                value={state.login}
-                onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, login: value }))
-                  }
-              />
               <TextInput
                 style={styles.input}
                 placeholder="Адрес электронной почты"
@@ -110,9 +91,9 @@ export const RegistrationForm = () => {
                 style={styles.btn}
                 onPress={onSignUp}
               >
-                <Text style={styles.btnTitle}>Зарегистрироваться</Text>
+                <Text style={styles.btnTitle}>Войти</Text>
               </TouchableOpacity>
-              <Text style={styles.textLogin}>Уже есть аккаунт? Войти</Text>
+              <Text style={styles.textLogin}>Нет аккаунта? Зарегистрироваться</Text>
             
           </View>
         </KeyboardAvoidingView>
@@ -129,22 +110,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     // alignItems: "center",
   },
-  photo: {
-    width: 120,
-    height: 120,
-    backgroundColor: "#F6F6F6",
-    borderColor: "#F6F6F6",
-    borderRadius: 16,
-    position: "absolute",
-    left: "47%",
-    transform: [{ translateX: -50 }, { translateY: -60 }],
-    
-  },
-  avatarIcon: {
-    position: "absolute",
-    top: 81,
-    left: 107,
-  },
   form: {
     marginHorizontal: 16,
   },
@@ -154,7 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     lineHeight: 35,
     textAlign: "center",
-    marginTop: 92,
+    marginTop: 32,
     marginBottom: 33,
   },
   input: {
@@ -196,7 +161,7 @@ const styles = StyleSheet.create({
   },
   textLogin: {
     fontFamily: "Roboto-Regular",
-    marginBottom: 78,
+    marginBottom: 144,
     textAlign: "center",
     color: "#1B4371",
     fontSize: 16,
@@ -204,6 +169,3 @@ const styles = StyleSheet.create({
   },
   
 });
-
-
-

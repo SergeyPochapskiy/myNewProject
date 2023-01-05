@@ -1,5 +1,6 @@
 import { StyleSheet, View, ImageBackground } from "react-native";
 import { RegistrationForm } from "./Screens/RegistrationScreen";
+// import { LoginForm } from "./Screens/LoginScreen";
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
         source={require("./assets/images/photo-bg.jpg")}
       >
         <RegistrationForm/>
+        {/* <LoginForm/> */}
       </ImageBackground>
     </View>
   );
