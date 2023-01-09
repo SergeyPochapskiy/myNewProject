@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -9,12 +9,8 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  ImageBackground,
 } from "react-native";
-
-import { useFonts } from "expo-font";
-import * as SplashScreen from 'expo-splash-screen';
-
-SplashScreen.preventAutoHideAsync();
 
 const initialState = {
   email: "",
@@ -26,23 +22,6 @@ export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(true);
   const [state, setState] = useState(initialState);
 
-
-  const [fontsLoaded] = useFonts({
-    "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Medium": require("../assets/fonts/Roboto-Medium.ttf"),
-  });
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
-
   const onSignUp = () => {
     console.log(state);
     setState(initialState);
@@ -53,48 +32,51 @@ export const LoginForm = () => {
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
-          <View style={styles.container} onLayout={onLayoutRootView}>
-            <Text style={styles.title}>Войти</Text>
-            <View style={{
-              ...styles.form,
-              marginBottom: isShowKeyboard ? 10 : 80
-              }}
-            >
-              <TextInput
-                style={styles.input}
-                placeholder="Адрес электронной почты"
-                onFocus={() => setIsShowKeyboard(true)}
-                value={state.email}
-                onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, email: value }))
-                  }
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Пароль"
-                secureTextEntry={showPassword}
-                onFocus={() => setIsShowKeyboard(true)}
-                value={state.password}
-                onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, password: value }))
-                  }
-              />
-              <TouchableOpacity
-                  onPressIn={() => setShowPassword(false)}
-                  onPressOut={() => setShowPassword(true)}
-                >
-                  <Text style={styles.btnShowPassword}>Показать</Text>
-                </TouchableOpacity>
-            </View>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.btn}
-                onPress={onSignUp}
+          <View style={styles.container}>
+            <ImageBackground 
+              style={styles.image}
+              source={require("../assets/images/photo-bg.jpg")}>
+              <Text style={styles.title}>Войти</Text>
+              <View style={{
+                ...styles.form,
+                marginBottom: isShowKeyboard ? 10 : 80
+                }}
               >
-                <Text style={styles.btnTitle}>Войти</Text>
-              </TouchableOpacity>
-              <Text style={styles.textLogin}>Нет аккаунта? Зарегистрироваться</Text>
-            
+                <TextInput
+                  style={styles.input}
+                  placeholder="Адрес электронной почты"
+                  onFocus={() => setIsShowKeyboard(true)}
+                  value={state.email}
+                  onChangeText={(value) =>
+                      setState((prevState) => ({ ...prevState, email: value }))
+                    }
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Пароль"
+                  secureTextEntry={showPassword}
+                  onFocus={() => setIsShowKeyboard(true)}
+                  value={state.password}
+                  onChangeText={(value) =>
+                      setState((prevState) => ({ ...prevState, password: value }))
+                    }
+                />
+                <TouchableOpacity
+                    onPressIn={() => setShowPassword(false)}
+                    onPressOut={() => setShowPassword(true)}
+                  >
+                    <Text style={styles.btnShowPassword}>Показать</Text>
+                  </TouchableOpacity>
+              </View>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={styles.btn}
+                  onPress={onSignUp}
+                >
+                  <Text style={styles.btnTitle}>Войти</Text>
+                </TouchableOpacity>
+                <Text style={styles.textLogin}>Нет аккаунта? Зарегистрироваться</Text>
+            </ImageBackground>
           </View>
         </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -104,12 +86,18 @@ export const LoginForm = () => {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    // justifyContent: "flex-end",
+    justifyContent: "flex-end",
     borderTopStartRadius: 25,
     borderTopEndRadius: 25,
     backgroundColor: "#fff",
     // alignItems: "center",
   },
+  image: {
+      // flex: 1,
+      // // resizeMode: "cover",
+      // justifyContent: 'center',
+      // // justifyContent: "flex-end",
+    },
   form: {
     marginHorizontal: 16,
   },
