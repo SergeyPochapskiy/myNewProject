@@ -2,10 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 const PostsScreen = () => {
-    return
+    return (
         <View style={styles.container}>
             <Text>ProfileScreen</Text>
         </View>
+    )
 }
 
 const styles = StyleSheet.create({
